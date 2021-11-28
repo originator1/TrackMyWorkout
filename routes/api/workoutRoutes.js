@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {  Workout } = require('../../models');
-// const { API } = require()
+
 
 
 
@@ -23,19 +23,8 @@ router.get('/', async (req, res) => {
          
     ]);
     
-    // {exercises: {$push[$addFields: "exercises."}});
-    // Workout.aggregate( [
-    //   {
-    //     $addFields: {
-    //       "exercises.totalDuration": {$sum: "$exercises.duration"}
-    //     }
-    //   }
-    // ])
-    //{$addFields: {totalDuration: {$sum: { $exercises.duration }
-    // {$addFields: {totalWorkoutDuration: {$sum: "$duration"} }}
-    // {$addFields: {sumOfTotalWeight: }}
-    //$concatArrays --> to add element to existing array field with $addFields
-    console.log(workoutData);
+
+    // console.log(workoutData);
     res.json(workoutData);
 
   } catch (err) {
@@ -46,7 +35,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newWorkout = await Workout.create({...req.body});
-    console.log("this is my post body: ", req.body)
+    // console.log("this is my post body: ", req.body)
     res.json(newWorkout);
   } catch (err) {
     res.status(500).json(err);
@@ -87,7 +76,7 @@ router.put('/:id', async (req, res) => {
       { $push: { exercises: req.body } },
       { new: true, runValidators: true }
     );
-    console.log(workout);
+    // console.log(workout);
     res.json(workout);
   } catch (err) {
     res.status(500).json(err);
