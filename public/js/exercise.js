@@ -19,11 +19,14 @@ let shouldNavigateAway = false;
 
 async function initExercise() {
   let workout;
+//loads when new workout from index clicked changing url to /exercise
+//this ends up causing if statement to always be undefined 
 
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
     console.log(workout)
   }
+  //when comes up undefined, this adds ?id=undefined
   if (workout) {
     location.search = "?id=" + workout._id;
   }
@@ -34,7 +37,7 @@ initExercise();
 
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
-  console.log('WE INSIDE CARDIO WORKOUT TYPE');
+  console.log('THIS IS INSIDE exercise.js handleWorkoutTypeChange function');
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
@@ -97,15 +100,19 @@ function validateInputs() {
 
 async function handleFormSubmit(event) {
   event.preventDefault();
-console.log('INSIDE CARDIO FORM');
+  console.log('INSIDE HandleFormSubmit FORM');
   let workoutData = {};
 
   if (workoutType === "cardio") {
+    console.log("inside cardio__")
+    // workoutData.day = Date(new Date().setDate(new Date().getDate()));
     workoutData.type = "cardio";
     workoutData.name = cardioNameInput.value.trim();
     workoutData.distance = Number(distanceInput.value.trim());
     workoutData.duration = Number(durationInput.value.trim());
   } else if (workoutType === "resistance") {
+    console.log("inside resistance__")
+    // workoutData.day = Date(new Date().setDate(new Date().getDate()));
     workoutData.type = "resistance";
     workoutData.name = nameInput.value.trim();
     workoutData.weight = Number(weightInput.value.trim());
@@ -113,7 +120,7 @@ console.log('INSIDE CARDIO FORM');
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
-
+  console.log(workoutData);
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");

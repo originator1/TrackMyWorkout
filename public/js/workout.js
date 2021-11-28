@@ -1,21 +1,24 @@
 
-
+//Fires initWorkout at bottom of page
 
 async function initWorkout() {
+  //grab last workout obj with exercises : array or obj [{exercise list key:value pairs}]
   const lastWorkout = await API.getLastWorkout();
   console.log("Last workout:", lastWorkout);
   if (lastWorkout) {
     document
+    //if object returned, change contine button url to add last objs id
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
-
+    //create workout summary for index page
     const workoutSummary = {
-      date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
+      date: formatDate(lastWorkout.day),//returning invalid
+      totalDuration: lastWorkout.totalDuration,//returning undefined
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
-
+    console.log("workout SuMmArY");
+    console.log(workoutSummary);
     renderWorkoutSummary(workoutSummary);
   } else {
     renderNoWorkoutText()
@@ -61,6 +64,8 @@ function renderWorkoutSummary(summary) {
   };
 
   Object.keys(summary).forEach(key => {
+    console.log('KEY BELOW');
+    console.log(key);
     const p = document.createElement("p");
     const strong = document.createElement("strong");
 

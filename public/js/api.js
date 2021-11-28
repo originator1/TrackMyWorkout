@@ -5,13 +5,13 @@ const API = {
     let res;
     try {
       //needs to return an array of workouts, then grabs length of array -1 to grab last workout entered
-      res = await fetch("/workouts");
+      res = await fetch("/api/workouts");
     } catch (err) {
       console.log(err)
     }
     const json = await res.json();
-    console.log('check it outttt getlastwourkout function:');
-    console.log(json);
+    console.log('inside getLastWorkout API function, response object below:');
+    console.log(json[json.length -1]);
     return json[json.length - 1];
   },
   async addExercise(data) {
@@ -30,17 +30,20 @@ const API = {
     return json;
   },
   async createWorkout(data = {}) {
+    console.log('inside create workout API function, below is that data obj');
+    console.log(data);
     const res = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
+     
     });
 
     const json = await res.json();
 
     return json;
   },
-//changed from /api/workouts/range --> /workouts/range
+//changed from /api/workouts/range 
   async getWorkoutsInRange() {
     const res = await fetch(`/api/workouts/range`);
     const json = await res.json();
@@ -50,3 +53,4 @@ const API = {
 };
 // const getLastWorkout = API.getLastWorkout
 // module.exports = API;
+

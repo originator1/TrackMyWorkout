@@ -1,14 +1,17 @@
 
 
 //firing on initial load (homepage)
+//ALL THIS DOES IS CHANGE URL TO LAST WORKOUT OBJ _ID
 init();
 
 async function init() {
   if (location.search.split("=")[1] === undefined) {
-    console.log('were firinggg')
+    console.log('firinggg')
     const workout = await API.getLastWorkout();
-    console.log(workout)
+    
     if (workout) {
+      console.log(workout);
+      //changes url to ?id=(last workout entire obj id)
       location.search = "?id=" + workout._id;
     } else {
       document.querySelector("#continue-btn").classList.add("d-none")

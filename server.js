@@ -1,7 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
+// const { Workout } = require('./models')
 
 const routes = require('./routes')
 
@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutapp", { 
 //   });
 
 
-app.use('/api', routes);
+app.use('/', routes);
 
 
 app.listen(PORT, () => {
