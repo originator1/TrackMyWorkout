@@ -9,8 +9,33 @@ const {  Workout } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     //need to return a day key and total duration?
-    const workoutData = await Workout.find({});
-    // {$addFields: {totalDuration: }}
+    const workoutData = await Workout.aggregate([
+      { 
+        "$project": {
+            "day": 1,
+            "exercises": 1,
+            "totalDuration": {
+               "$sum": "$exercises.duration"
+            },
+
+        }
+      }
+         
+    ]);
+    
+    // {exercises: {$push[$addFields: "exercises."}});
+    // Workout.aggregate( [
+    //   {
+    //     $addFields: {
+    //       "exercises.totalDuration": {$sum: "$exercises.duration"}
+    //     }
+    //   }
+    // ])
+    //{$addFields: {totalDuration: {$sum: { $exercises.duration }
+    // {$addFields: {totalWorkoutDuration: {$sum: "$duration"} }}
+    // {$addFields: {sumOfTotalWeight: }}
+    //$concatArrays --> to add element to existing array field with $addFields
+    console.log(workoutData);
     res.json(workoutData);
 
   } catch (err) {
