@@ -58,7 +58,19 @@ router.post('/', async (req, res) => {
 
 router.get('/range', async (req, res) => {
   try {
-    const workoutRange = await Workout.find({});
+    const workoutRange = await Workout.aggregate([
+      { 
+        "$project": {
+            "day": 1,
+            "exercises": 1,
+            "totalDuration": {
+               "$sum": "$exercises.duration"
+            },
+
+        }
+      }
+         
+    ]);
     res.json(workoutRange);
   } catch (err) {
     res.status(500).json(err);
