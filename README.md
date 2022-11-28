@@ -26,17 +26,3 @@ Mongo DB \
 Mongoose \
 Express
 
-
-API.
-(return last entered workout)
-getLastWorkout()
--fetch("/api/workouts")
--> return workoutList[workoutList.length-1]
-
-
-
-addExercise(data)
-
-createWorkout(data = {})
-
-getWorkoutsInRange()
