@@ -21,22 +21,16 @@ app.use(express.static("public"));
 
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/workoutapp", 
+  process.env.MONGODB_URI || "mongodb://localhost:27017/workoutapp", 
   { 
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    family: 4
   }
 );
 
-// db.Library.create({ name: "Campus Library" })
-//   .then(dbLibrary => {
-//     console.log(dbLibrary);
-//   })
-//   .catch(({message}) => {
-//     console.log(message);
-//   });
 
 
 app.use('/', routes);

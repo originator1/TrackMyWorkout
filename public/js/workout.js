@@ -17,7 +17,6 @@ async function initWorkout() {
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
-    console.log("workout SuMmArY");
     console.log(workoutSummary);
     renderWorkoutSummary(workoutSummary);
   } else {
@@ -64,8 +63,6 @@ function renderWorkoutSummary(summary) {
   };
 
   Object.keys(summary).forEach(key => {
-    console.log('KEY BELOW');
-    console.log(key);
     const p = document.createElement("p");
     const strong = document.createElement("strong");
 

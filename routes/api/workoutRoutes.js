@@ -2,10 +2,7 @@ const router = require('express').Router();
 const {  Workout } = require('../../models');
 
 
-
-
-// ## /api/workouts returns all Workouts models
-
+// /api/workouts returns all Workout models
 router.get('/', async (req, res) => {
   try {
     //need to return a day key and total duration?
@@ -17,13 +14,9 @@ router.get('/', async (req, res) => {
             "totalDuration": {
                "$sum": "$exercises.duration"
             },
-
         }
-      }
-         
+      }     
     ]);
-    
-
     // console.log(workoutData);
     res.json(workoutData);
 
@@ -42,9 +35,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-
 // ## /api/workouts/range returns all workouts models
-
 router.get('/range', async (req, res) => {
   try {
     const workoutRange = await Workout.aggregate([
@@ -55,10 +46,8 @@ router.get('/range', async (req, res) => {
             "totalDuration": {
                "$sum": "$exercises.duration"
             },
-
         }
-      }
-         
+      }      
     ]);
     res.json(workoutRange);
   } catch (err) {
@@ -82,15 +71,6 @@ router.put('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-
-// db.Workouts.insert({
-//   day: Date().now,
-
-// })
-
-
-
 
 
 module.exports = router;

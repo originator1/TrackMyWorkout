@@ -19,8 +19,8 @@ let shouldNavigateAway = false;
 
 async function initExercise() {
   let workout;
-//loads when new workout from index clicked changing url to /exercise
-//this ends up causing if statement to always be undefined 
+  //loads when new workout from index clicked changing url to /exercise
+  //this ends up causing if statement to always be undefined 
 
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
@@ -28,7 +28,9 @@ async function initExercise() {
   }
   //when comes up undefined, this adds ?id=undefined
   if (workout) {
+    console.log("chocloate")
     location.search = "?id=" + workout._id;
+    
   }
 
 }
@@ -93,7 +95,7 @@ function validateInputs() {
     completeButton.removeAttribute("disabled");
     addButton.removeAttribute("disabled");
   } else {
-    completeButton.setAttribute("disabled", true);
+    // completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
 }
@@ -121,6 +123,7 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
   console.log(workoutData);
+  //uses input exercise data and updates workout model by adding an exercise
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
@@ -156,6 +159,7 @@ if (completeButton) {
 if (addButton) {
   addButton.addEventListener("click", handleFormSubmit);
 }
+
 toast.addEventListener("animationend", handleToastAnimationEnd);
 
 document
